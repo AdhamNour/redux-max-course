@@ -5,28 +5,10 @@ import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 
 class Counter extends Component {
-    state = {
-        counter: 0
-    }
-
-    counterChangedHandler = ( action, value ) => {
-        switch ( action ) {
-            case 'inc':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
-                break;
-            case 'dec':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
-                break;
-            case 'add':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
-                break;
-            case 'sub':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
-                break;
-        }
-    }
+    
 
     render () {
+        let listElements = this.props.storedResults.map( (e,i)=> <li key={i}  onClick={this.props.onDleteResult} >{e}</li>)
         return (
             <div>
                 <CounterOutput value={this.props.ctr} />
@@ -34,13 +16,19 @@ class Counter extends Component {
                 <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}   />
                 <CounterControl label="Add 5" clicked={() => this.props.onAddValueToCounter(5)}  />
                 <CounterControl label="Subtract 5" clicked={() => this.props.onSubtractValueFromCounter(5)}  />
+                <hr />
+                <button onClick={this.props.onStoreResult}>Store Result</button>
+                <ul>
+                    {listElements}
+                </ul>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => { return { 
-    ctr: state.counter
+    ctr: state.counter,
+    storedResults: state.results
 }}
 
 const mapDispatchToProps = dispatch => {
@@ -48,7 +36,9 @@ const mapDispatchToProps = dispatch => {
         onIncrementCounter : ()=> dispatch({type:'INCREMENT'}),
         onDecrementCounter : ()=> dispatch({type:'DECREMENT'}),
         onAddValueToCounter: (value)=> dispatch({type:'ADD',value: value}),
-        onSubtractValueFromCounter: (value)=> dispatch({type:'SUBTRACT',value:value})
+        onSubtractValueFromCounter: (value)=> dispatch({type:'SUBTRACT',value:value}),
+        onStoreResult: (value)=> dispatch({type:'SOTRE_RESULT'}),
+        onDleteResult: (value)=> dispatch({type:'DELETE_RESULT'})
     }
 }
 
