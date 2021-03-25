@@ -8,7 +8,7 @@ class Counter extends Component {
     
 
     render () {
-        let listElements = this.props.storedResults.map( (e,i)=> <li key={i}  onClick={this.props.onDleteResult} >{e}</li>)
+        let listElements = this.props.storedResults.map( (e,i)=> <li key={i}  onClick={()=>this.props.onDleteResult(i)} >{e}</li>)
         return (
             <div>
                 <CounterOutput value={this.props.ctr} />
@@ -37,8 +37,8 @@ const mapDispatchToProps = dispatch => {
         onDecrementCounter : ()=> dispatch({type:'DECREMENT'}),
         onAddValueToCounter: (value)=> dispatch({type:'ADD',value: value}),
         onSubtractValueFromCounter: (value)=> dispatch({type:'SUBTRACT',value:value}),
-        onStoreResult: (value)=> dispatch({type:'SOTRE_RESULT'}),
-        onDleteResult: (value)=> dispatch({type:'DELETE_RESULT'})
+        onStoreResult: ()=> dispatch({type:'STORE_RESULT'}),
+        onDleteResult: (value)=> dispatch({type:'DELETE_RESULT',value:value}),
     }
 }
 
