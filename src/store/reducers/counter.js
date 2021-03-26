@@ -1,8 +1,7 @@
-import * as actionTypes from './actions';
+import * as actionTypes from '../actions';
 
 const initialState ={
     counter: 0,
-    results : []
 }
 
 const reducer = (state = initialState, action) => {
@@ -28,19 +27,6 @@ const reducer = (state = initialState, action) => {
         return {
             ...state,
             counter: state.counter - action.value
-        }
-    }
-    if(action.type === actionTypes.STORE_RESULT){
-
-        return {
-            ...state,
-            results:[... state.results,state.counter]
-        }
-    }
-    if (action.type === actionTypes.DELETE_RESULT){
-        return {
-            ...state,
-            results:state.results.filter((value,index) => action.value!==index)
         }
     }
     console.log("this is not supported action ",action.type)
