@@ -37,8 +37,10 @@ export const saveResult = (res) =>{
 }
 
 export const storeResult = (res) => {
-    return dispatch =>{
+    return (dispatch,getState) =>{
       setTimeout(()=>{
+        const oldCounter = getState().ctr.counter
+        console.log("[action.js] current counter is",oldCounter)
         dispatch(saveResult(res))
       },1000)
     }
